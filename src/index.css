@@ -7,7 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   
   /* Estilo de degradado para el body */
-  background: linear-gradient(to bottom, black, #1f2937,black); /* Degradado vertical desde negro, pasando por gris oscuro hasta gris claro */
+  background: linear-gradient(to bottom, black, #0f0c09d3,#060807,black); /* Degradado vertical desde negro, pasando por gris oscuro hasta gris claro */
 
 }
 

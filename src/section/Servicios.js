@@ -1,50 +1,82 @@
 import React from "react";
-import FaseConsulta from "../componentes/FaseConsulta";
-import ElementoColumna from "../componentes/ElementoColumna";
-import Tratamientos from "../componentes/Tratamiento";
-import FaseConsultaDos from "../componentes/FaseConsultaDos";
+import Contenedor from "../componentes/Contenedor";
+import Seguimiento from "../componentes/Seguimiento";
 
 const Services = () => {
   return (
-    <div id="Servicios">
-      <div>
-        <FaseConsulta />
-        <ElementoColumna />
-        <FaseConsultaDos />
+    <div id="Servicios" className="mx-auto p-12">
+      <div className="w-full  md:p-20 grid grid-cols-1 md:grid-cols-2 gap-14 ">
+        <div className="mb-8 md:col-span-2 text-center">
+          <h2 className="text-4xl text-amber-50 font-semibold">
+            <span className="text-orange-500">¿</span>Cómo funciona la consulta<span className="text-orange-500">?</span>
+          </h2>
+        </div>
+        <div className="md:col-start-1  md:row-span-2 ">
+          <Contenedor
+            numeracion="1°"
+            fase="CONSULTA PREVIA"
+            texto1="Agenda tu cita vía WhatsApp en el mejor día y hora para ti, según la disponibilidad de horarios en tu calendario."
+            className="max-w-md mx-auto"
+          />
+        </div>
+        <div className="md:col-start-2 md:col-span-2 md:row-span-2 md:pt-[200px]">
+          <Contenedor
+            numeracion="2°"
+            fase="CONSULTA Y EVALUACIÓN"
+            texto1="El día de la consulta te presentaré mi forma de trabajar y ver la nutrición y la historia de algunos pacientes que con el mismo objetivo que el tuyo han tenido resultados increíbles."
+            texto2="A continuación, hablaremos de tus objetivos, historial dietético, uso de suplementos, otros recursos y tu historial con el ejercicio físico."
+            texto3="Por último y no menos importante, realizaremos tu valoración física completa, donde será posible identificar:"
+            lista1="- Fortalezas y debilidades de tu físico."
+            lista2="- Circunferencias"
+            lista3="- Porcentaje de grasa."
+            className="max-w-md mx-auto"
+          />
+        </div>
+        <div className="md:col-start-1 md:row-span-2  pb-[50px]">
+          <Contenedor
+            numeracion="3°"
+            fase="HACER UN SEGUIMIENTO"
+            texto1="Luego de enviar tu plan de alimentación con toda la orientación necesaria, tendrás acceso a mi WhatsApp para hacer preguntas y enviar comentarios durante el período de 30 días, tantas veces como quieras."
+            texto2="Recibirás tu plan en una aplicación para Android y iPhone y también podrás imprimirlo si lo deseas."
+            className="max-w-md mx-auto"
+          />
+        </div>
       </div>
       <div>
-        <Tratamientos
-          imagen=""
-          tratamiento="REEDUCACIÓN ALIMENTAR"
-          parrafoUno="Si tienes dificultades para adaptar una dieta saludable a tu rutina, tienes muchas dudas sobre cómo comer mejor y qué alimentos elegir para estar verdaderamente saludable."
-          parrafoDos="Te ayudaré a simplificar tu dieta para que se ajuste a tu rutina exactamente como es."
-        />
-        <Tratamientos
-          imagen=""
-          tratamiento="PÉRDIDA DE PESO"
-          parrafoUno="Perder peso va mucho más allá de una Dieta. Cuidar tu cuerpo, mente y emociones es el camino hacia el cambio real y ser más ligero en la vida y en la balanza."
-          parrafoDos="Y, si sientes que hay un bloqueo o saboteador mental que te lo está poniendo difícil, tengo trabajo muy enfocado en ayudarte a desbloquear estos saboteadores para acelerar tu pérdida de peso."
-        />
-        <Tratamientos
-          imagen=""
-          tratamiento="TOLERANCIA Y ALERGIAS A LOS ALIMENTOS"
-          parrafoUno="Si te sientes hinchado, con gases, heces blandas o muy secas, reflujo, dolor abdominal y otros síntomas en el intestino o el estómago, esto no es normal."
-          parrafoDos="El tratamiento nutricional te ayuda a comprender y afrontar de la mejor forma posible las intolerancias alimentarias o los problemas de digestión."
-        />
-        <Tratamientos
-          imagen=""
-          tratamiento="ESTÉTICA"
-          parrafoUno="Si buscas mejorar la calidad de tu piel, reducir espinillas, manchas y envejecimiento, tener un cabello sano sin caída y unas uñas fuertes, fuertes sin imperfecciones, sin estrías, sin roturas, reducir la celulitis, previniendo el envejecimiento, sabes que Nutrición de El interior hacia fuera es el principal aliado de la estética."
-        />
-        <Tratamientos
-          imagen=""
-          tratamiento="CALIDAD DE VIDA"
-          parrafoUno="Sentirse muy cansado, falta de energía, dolor de cabeza, mala digestión, cambios de humor, falta de energía… Son algunas de las señales de que tu calidad de vida es baja."
-          parrafoDos=" Mereces vivir con plena energía y vitalidad. Para tratar estos síntomas, planifico una dieta y suplementación (si es necesario) según las necesidades de su cuerpo."
-        />
+        <div>
+          <h2 className="text-4xl text-amber-50 font-semibold text-center pb-8"><span className="text-orange-500">¿</span>Por qué optar por un seguimiento nutricional<span className="text-orange-500">?</span></h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-[40px] p-4">
+          <Seguimiento 
+          imagen="adelgazamiento" 
+          texto="Adelgazamiento Saludable" 
+          />
+          <Seguimiento 
+          imagen="nutriologa" 
+          texto="Nutrología" 
+          />
+          <Seguimiento 
+          imagen="deporte-nutricion" 
+          texto="Nutrición Deportiva" 
+          />
+          <Seguimiento 
+          imagen="hipertrofia" 
+          texto="Hipertrofia" 
+          />
+          <Seguimiento 
+          imagen="performance" 
+          texto="Performance" 
+          />
+          <Seguimiento 
+          imagen="calidadvida" 
+          texto="Calidad de Vida" 
+          />
+        </div>
       </div>
-      <div>
-        <button>CONTACTO</button>
+      <div className="text-center mt-8">
+        <button className="px-8 py-4 bg-blue-600 text-white font-semibold rounded-md">
+          CONTACTO
+        </button>
       </div>
     </div>
   );

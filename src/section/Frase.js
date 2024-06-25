@@ -2,22 +2,24 @@ import React from "react";
 import ContenedorImagen from "../componentes/ContenedorImagen";
 const Frase = () => {
   return (
-    <section className="bg-black h-[150px] justify-between">
-      <div className="flex">
-        <div className="flex w-1/4 pl-16  items-center">
+    <div className = "flex bg-black h-[200px] items-center justify-center ">
+      <div className="flex justify-around items-center p-10 gap-10 md:h-[100px]">
+        <div>
           <ContenedorImagen imagen="comillaInicio" />
         </div>
-        <div className="flex w-1/2  items-center">
-          <h2 className="text-white">
+        <div>
+          <h2 className="text-white md:text-xl lg:w-max">
             No debemos comportarnos como si el cuerpo fuera el propósito de
             nuestra vida, sino como si no pudiéramos vivir sin cuidarlo.
           </h2>
         </div>
-        <div className="w-1/4">
-          <ContenedorImagen imagen="comillaCierre" />
+        <div>
+          <ContenedorImagen 
+          imagen="comillaCierre"
+          />
         </div>
-      </div>
-    </section>
+      </div>  
+    </div>
   );
 };
 
