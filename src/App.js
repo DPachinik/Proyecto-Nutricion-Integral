@@ -1,4 +1,5 @@
 import "./App.css";
+import { useState, useEffect } from "react";
 import { Route, Routes, Link } from "react-router-dom";
 import Home from '../src/pages/Home';
 import Tienda from '../src/pages/Tienda';
@@ -8,8 +9,19 @@ import Frase from "./section/Frase";
 import CambioFisico from "./section/CambioFisico";
 import Contacto from "./section/Contacto";
 import Footer from './section/Footer';
+import Login from './componentes/Login';
+import Register from './componentes/Register';
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
   return (
     <div className="">
       <nav className="flex flex-wrap shadow-lg shadow-amber-300 p-6">
@@ -62,14 +74,32 @@ function App() {
             >
               Tienda
             </Link>
+            {!isAuthenticated && (
+              <>
+                <Link
+                  to="/login"
+                  className="mt-4 lg:inline-block lg:mt-0 text-white transition-colors hover:text-orange-500 mr-4 focus:ring-1 focus:ring-orange-500 focus:ring-opacity-75 rounded-md p-2"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/register"
+                  className="mt-4 lg:inline-block lg:mt-0 text-white transition-colors hover:text-orange-500 mr-4 focus:ring-1 focus:ring-orange-500 focus:ring-opacity-75 rounded-md p-2"
+                >
+                  Register
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </nav>
-      
+
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path="/tienda" element={<Tienda />} />
+        <Route path="/tienda" element={<Tienda isAuthenticated={isAuthenticated} />} />
+        <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </div>
   );
@@ -78,7 +108,7 @@ function App() {
 function HomePage() {
   return (
     <div>
-      <Home/>
+      <Home />
       <Frase />
       <section id="SobreMi">
         <SobreMi className="bg-lime-200" />

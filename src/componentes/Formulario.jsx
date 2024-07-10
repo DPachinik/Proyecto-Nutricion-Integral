@@ -2,13 +2,63 @@ import React, { useState } from 'react'
 
 const Formulario = () => {
 
-    const[nombre,setNombre] = useState ('')
-    const[apellido,setApellido] = useState ('')
-    const[email,setEmail] = useState ('')
-    const[numero,setNumero] = useState ('')
-    const[mensaje,setMensaje] = useState ('')
+  const [datos,setDatos] = useState(
+  {
+    nombre: '',
+    apellido: '',
+    email: '',
+    celular: '',
+    mensaje:'',
+  });
+
+  const [respuesta, setRespuesta] = useState ('');
 
 
+  const handleChange = (e)=>{
+    const {name,value} = e.target;
+      setDatos ({
+      ...datos, [name] : value,
+    })
+  }
+
+  const handleSubmit = async(e)=>{
+    e.preventDefault();
+    try{
+      const resp = await fetch('http://localhost:3001/enviar-formulario', {
+        method: 'POST',
+        headers: {
+          'Content-Type':'application/json',
+        },
+        body: JSON.stringify(datos),
+      });
+      
+      if (resp.ok){
+        
+        setRespuesta('¡Formulario enviado con éxito!');
+
+        setDatos({
+          nombre: '',
+          apellido: '',
+          email: '',
+          celular: '',
+          mensaje: '',
+        });
+
+        setTimeout(() => {
+          setRespuesta('');
+        }, 5000);
+
+      }else{
+        setRespuesta('Hubo un error al enviar el formulario');
+        setTimeout(() => {
+          setRespuesta('');
+        }, 5000);
+      }   
+    }
+    catch(error){
+      console.log ('Error al enviar el formulario')
+    }
+  };
 
 
     
@@ -18,42 +68,57 @@ const Formulario = () => {
         <h2 className='text-white text-center'>CONTACTO</h2>
         <form
 				className='flex flex-col gap-6'
+        onSubmit={handleSubmit}
+        required
 				>
             <input
             type='text'
             placeholder='Nombre'
-            value= {nombre}
+            name = 'nombre'
+            value= {datos.nombre}
             className='input'
-            onChange={(e)=> setNombre(e.target.value)}
+            onChange={handleChange}
+            required
             />
             <input
             type='text'
             placeholder='Apellido'
-            value= {apellido}
+            name = 'apellido'
+            value= {datos.apellido}
             className='input'
-						onChange={(e)=> setApellido(e.target.value)}
+						onChange={handleChange}
+            required
             />
             <input
             type='email'
+            name =  'email'
             placeholder='email'
-            value= {email}
+            value= {datos.email}
             className='input'
-						onChange={(e)=>setEmail(e.target.value)}
+						onChange={handleChange}
+            required
             />
             <input
-            type='number'
-            placeholder='celular'
-            value={numero}
+            type='tel'
+            placeholder='numero'
+            name = 'celular'
+            value={datos.celular}
             className='input'
-						onChange={(e)=>setNumero(e.target.value)}
+						onChange={handleChange}
+            required
             />
             <textarea
             placeholder='Escriba su mensaje'
-            value={mensaje}
+            name  = 'mensaje'
+            value={datos.mensaje}
             className='textarea'
-						onChange={(e)=>setMensaje(e.target.value)}
+						onChange={handleChange}
+            required
             />
-						<button className='bg-amber-300'>Enviar</button>
+						<button type = 'submit' className='bg-amber-300'>Enviar</button>
+            {respuesta && (
+              <div className='text-white'>{respuesta}</div>
+            )}
         </form>
       </div>
 			<div className='text-white pl-[50px] space-y-10'>
