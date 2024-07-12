@@ -1,33 +1,32 @@
+require('dotenv').config();
 const express = require('express');
 const nodemailer = require('nodemailer');
-const cors = require ('cors');
+const cors = require('cors');
 
 const app = express();
-const port = 3001; // Puedes cambiar el puerto según tu configuración
+const port = process.env.PORT_CORREO;
 
 app.use(cors());
-// Middleware para analizar application/json
 app.use(express.json());
 
 // Ruta para manejar la solicitud POST del formulario
 app.post('/enviar-formulario', async (req, res) => {
   try {
-    // Extraer datos del cuerpo del formulario
     const { nombre, apellido, email, celular, mensaje } = req.body;
     console.log(req.body);
-    // Configurar el transporte Nodemailer
+
+    // Configurar el transporte Nodemailer con variables de entorno
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'david.pachinik@fiuni.edu.py', // Reemplazar con tu correo electrónico
-        pass: 'crkczeixmmnjvukx', // Reemplazar con tu contraseña
+        user: process.env.EMAIL_USER, 
+        pass: process.env.EMAIL_PASS, 
       },
     });
 
-    // Opciones del correo electrónico para el negocio
     const mailOptionsNegocio = {
-      from: 'david.pachinik@fiuni.edu.py', // Dirección de correo electrónico del remitente
-      to: 'ing.pachinik96@gmail.com', // Dirección de correo electrónico del destinatario (negocio)
+      from: process.env.EMAIL_USER, 
+      to: process.env.EMAIL_LOCAL, 
       subject: 'Nuevo mensaje del formulario de contacto',
       html: `<p>Nombre: ${nombre}</p>
              <p>Apellido: ${apellido}</p>
@@ -36,12 +35,11 @@ app.post('/enviar-formulario', async (req, res) => {
              <p>Mensaje: ${mensaje}</p>`,
     };
 
-    // Enviar el correo electrónico al negocio
-    await transporter.sendMail(mailOptionsNegocio, (error,info)=>{
-      if(error){
-        console.log('hay un error:', error);
-      }else{
-        console.log('mensaje enviado con exito', info.response)
+    await transporter.sendMail(mailOptionsNegocio, (error, info) => {
+      if (error) {
+        console.log('Hay un error:', error);
+      } else {
+        console.log('Mensaje enviado con éxito', info.response);
         res.status(200).send('Formulario enviado con éxito');
       }
     });
@@ -52,7 +50,6 @@ app.post('/enviar-formulario', async (req, res) => {
   }
 });
 
-// Iniciar el servidor
 app.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}`);
 });

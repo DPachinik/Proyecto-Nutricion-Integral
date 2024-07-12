@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import { Route, Routes, Link } from "react-router-dom";
+import { Route, Routes, Link, useNavigate } from "react-router-dom";
 import Home from '../src/pages/Home';
 import Tienda from '../src/pages/Tienda';
 import Servicios from "./section/Servicios";
@@ -9,11 +9,10 @@ import Frase from "./section/Frase";
 import CambioFisico from "./section/CambioFisico";
 import Contacto from "./section/Contacto";
 import Footer from './section/Footer';
-import Login from './componentes/Login';
-import Register from './componentes/Register';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -21,6 +20,22 @@ function App() {
       setIsAuthenticated(true);
     }
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsAuthenticated(false);
+    navigate('/home');
+  };
+
+  const handleNavigation = (hash) => {
+    navigate('/home');
+    setTimeout(() => {
+      const section = document.getElementById(hash);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 0);
+  };
 
   return (
     <div className="">
@@ -50,45 +65,37 @@ function App() {
             >
               Inicio
             </Link>
-            <a
-              href="#SobreMi"
-              className="mt-4 lg:inline-block lg:mt-0 text-white transition-colors hover:text-orange-500 mr-4"
+            <span
+              className="mt-4 lg:inline-block lg:mt-0 text-white transition-colors hover:text-orange-500 mr-4 cursor-pointer"
+              onClick={() => handleNavigation('SobreMi')}
             >
               Sobre Mi
-            </a>
-            <a
-              href="#Servicios"
-              className="mt-4 lg:inline-block lg:mt-0 text-white transition-colors hover:text-orange-500 mr-4"
+            </span>
+            <span
+              className="mt-4 lg:inline-block lg:mt-0 text-white transition-colors hover:text-orange-500 mr-4 cursor-pointer"
+              onClick={() => handleNavigation('Servicios')}
             >
               Servicios
-            </a>
-            <a
-              href="#Contacto"
-              className="mt-4 lg:inline-block lg:mt-0 text-white transition-colors hover:text-orange-500 mr-4"
+            </span>
+            <span
+              className="mt-4 lg:inline-block lg:mt-0 text-white transition-colors hover:text-orange-500 mr-4 cursor-pointer"
+              onClick={() => handleNavigation('Contacto')}
             >
               Contacto
-            </a>
+            </span>
             <Link
               to="/tienda"
               className="mt-4 lg:inline-block lg:mt-0 text-white transition-colors hover:text-orange-500 mr-4 focus:ring-1 focus:ring-orange-500 focus:ring-opacity-75 rounded-md p-2"
             >
               Tienda
             </Link>
-            {!isAuthenticated && (
-              <>
-                <Link
-                  to="/login"
-                  className="mt-4 lg:inline-block lg:mt-0 text-white transition-colors hover:text-orange-500 mr-4 focus:ring-1 focus:ring-orange-500 focus:ring-opacity-75 rounded-md p-2"
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/register"
-                  className="mt-4 lg:inline-block lg:mt-0 text-white transition-colors hover:text-orange-500 mr-4 focus:ring-1 focus:ring-orange-500 focus:ring-opacity-75 rounded-md p-2"
-                >
-                  Register
-                </Link>
-              </>
+            {isAuthenticated && (
+              <button
+                onClick={handleLogout}
+                className="mt-4 lg:inline-block lg:mt-0 text-white transition-colors hover:text-orange-500 mr-4 focus:ring-1 focus:ring-orange-500 focus:ring-opacity-75 rounded-md p-2"
+              >
+                Logout
+              </button>
             )}
           </div>
         </div>
@@ -97,9 +104,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path="/tienda" element={<Tienda isAuthenticated={isAuthenticated} />} />
-        <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/tienda" element={<Tienda isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />} />
       </Routes>
     </div>
   );
