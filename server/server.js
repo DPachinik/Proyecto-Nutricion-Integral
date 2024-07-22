@@ -27,7 +27,7 @@ app.post('/enviar-formulario', async (req, res) => {
     const mailOptionsNegocio = {
       from: process.env.EMAIL_USER, 
       to: process.env.EMAIL_LOCAL, 
-      subject: 'Nuevo mensaje del formulario de contacto',
+      subject: 'Mensaje desde tu Página Web',
       html: `<p>Nombre: ${nombre}</p>
              <p>Apellido: ${apellido}</p>
              <p>Email: ${email}</p>

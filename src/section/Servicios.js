@@ -73,11 +73,6 @@ const Services = () => {
           />
         </div>
       </div>
-      <div className="text-center mt-8">
-        <button className="px-8 py-4 bg-blue-600 text-white font-semibold rounded-md">
-          CONTACTO
-        </button>
-      </div>
     </div>
   );
 };

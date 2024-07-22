@@ -26,7 +26,7 @@ const CambioFisico = () => {
   return (
     <div className="m-[50px]">
       <h1 className="flex text-white justify-center text-center pb-10 text-[20px] md:text-[40px] font-semibold ">
-        Cambios Fisicos de algunos de mis pacientes
+        Cambios Físicos de algunos de mis pacientes
       </h1>
       <Swiper
         modules={[EffectFade,Navigation, Pagination, Scrollbar, A11y]}
